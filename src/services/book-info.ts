@@ -14,7 +14,6 @@ export function getBookInfo(pageBody: string, url: string) {
             bookKeys[keyValue[0].trim()] = keyValue[1].trim();
         }
     });
-
     const {
         ISBN: isbn,
         副标题: subtitle,
@@ -22,21 +21,21 @@ export function getBookInfo(pageBody: string, url: string) {
         出版社: publisher,
         定价: price
     } = bookKeys;
-    const bookInfo: { [key: string]: string } = Object.assign(
-        {},
-        { isbn, subtitle, authors, publisher, price }
-    );
 
-    // add other info
-    bookInfo.title = $('#wrapper > h1 > span').text().trim();
-    bookInfo.rating = $('.rating_num').text().trim();
-    bookInfo.tags = $('#db-tags-section > div')
-        .text()
-        .trim()
-        .replace(/\s+/g, ',');
-    bookInfo.summary = $('#link-report .intro').text().trim();
-    bookInfo.image = $('#mainpic > a > img').prop('src');
-    bookInfo.url = url;
+    const bookInfo = {
+        title: $('#wrapper > h1 > span').text().trim(),
+        rating: $('#interest_sectl .rating_num').text().trim(),
+        tags: $('#db-tags-section > div').text().trim().replace(/\s+/g, ','),
+        summary: $('#link-report .intro').text().trim(),
+        image: $('#mainpic > a > img').prop('src'),
+        url,
+        // from meta object keys
+        isbn,
+        subtitle,
+        authors,
+        publisher,
+        price
+    };
 
     return bookInfo;
 }
