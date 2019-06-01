@@ -7,16 +7,22 @@
     "start": "npm run build && npm run serve",
     "build": "tsc",
     "serve": "node build/app.js",
+    "debug": "npm run build && node --inspect build/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Faithful-Mind",
   "license": "ISC",
   "devDependencies": {
+    "@types/cheerio": "^0.22.11",
     "@types/koa": "^2.0.48",
+    "@types/koa-router": "^7.0.40",
     "@types/node": "^12.0.0",
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "koa": "^2.7.0"
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0"
   }
 }
