@@ -3,7 +3,9 @@ import cheerio from 'cheerio';
 export function getBookInfo(pageBody: string, url: string) {
     // remove unneccessary spaces and line breaks in body
     const $ = cheerio.load(pageBody.replace(/\s*\n\s*/g, ''));
-    $('#info').find('br').replaceWith('\n'); // preserver <br />
+    // preserve interested line breaks
+    $('#info').find('br').replaceWith('\n');
+    $('#link-report .intro p').append('\n');
 
     // convert meta info columns to object keys
     const bookKeys: { [key: string]: string } = {};
@@ -32,7 +34,7 @@ export function getBookInfo(pageBody: string, url: string) {
         // from meta object keys
         isbn,
         subtitle,
-        authors,
+        authors: authors.replace(/\s+编[\s\n]*$/g, ''),
         publisher,
         price
     };
