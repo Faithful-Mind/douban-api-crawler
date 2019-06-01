@@ -17,13 +17,14 @@ export function getBookInfo(pageBody: string, url: string) {
 
     const {
         ISBN: isbn,
+        副标题: subtitle,
         作者: authors,
         出版社: publisher,
         定价: price
     } = bookKeys;
     const bookInfo: { [key: string]: string } = Object.assign(
         {},
-        { isbn, authors, publisher, price }
+        { isbn, subtitle, authors, publisher, price }
     );
 
     // add other info
