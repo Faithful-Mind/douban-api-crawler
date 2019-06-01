@@ -14,6 +14,18 @@ router.get('/v2/book/:id', async (ctx, next) => {
     ctx.body = getBookInfo(resp.data, url);
 });
 
+router.get('/v2/book/isbn/:isbn', async ctx => {
+    const { isbn } = ctx.params;
+    const url =
+        'https://book.douban.com/subject_search?search_text=' +
+        encodeURIComponent(isbn);
+    const book = await getSearchResults(url);
+    const pageUrl = book[0].url;
+
+    const resp = await axios.get(pageUrl);
+    ctx.body = getBookInfo(resp.data, pageUrl);
+});
+
 router.get('/v2/book/search', async ctx => {
     const { q } = ctx.query;
     const url =
