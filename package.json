@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Faithful-Mind",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/cheerio": "^0.22.11",
     "@types/koa": "^2.0.48",
