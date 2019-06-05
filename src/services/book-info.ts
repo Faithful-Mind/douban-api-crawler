@@ -2,7 +2,7 @@ import cheerio from 'cheerio';
 
 export function getBookInfo(pageBody: string, url: string) {
     // remove unneccessary spaces and line breaks in body
-    const $ = cheerio.load(pageBody.replace(/\s*\n\s*/g, ''));
+    const $ = cheerio.load(pageBody.replace(/\s*\n\s*/g, ' '));
     // preserve interested line breaks
     $('#info').find('br').replaceWith('\n');
     $('#link-report .intro p').append('\n');
@@ -11,9 +11,9 @@ export function getBookInfo(pageBody: string, url: string) {
     const bookKeys: { [key: string]: string } = {};
     const arr2d = $('#info').text().split('\n');
     arr2d.forEach(e => {
-        const keyValue = e.split(':');
+        const keyValue = e.split(':').map(e => e.trim());
         if (keyValue[0]) {
-            bookKeys[keyValue[0].trim()] = keyValue[1].trim();
+            bookKeys[keyValue[0]] = keyValue[1];
         }
     });
     const {
