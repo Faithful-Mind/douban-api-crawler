@@ -28,7 +28,7 @@ export function getBookInfo(pageBody: string, url: string) {
         title: $('#wrapper > h1 > span').text().trim(),
         rating: $('#interest_sectl .rating_num').text().trim(),
         tags: $('#db-tags-section > div').text().trim().replace(/\s+/g, ','),
-        summary: $('#link-report .intro').text().trim(),
+        summary: $('#link-report .intro').last().text().trim(),
         image: $('#mainpic > a > img').prop('src'),
         url,
         // from meta object keys
