@@ -8,7 +8,7 @@ export function getBookInfo(pageBody: string, url: string) {
     $('#link-report .intro p').append('\n');
 
     // convert meta info columns to object keys
-    const bookKeys: { [key: string]: string } = {};
+    const bookKeys: { [key: string]: string | undefined } = {};
     const arr2d = $('#info').text().split('\n');
     arr2d.forEach(e => {
         const keyValue = e.split(':').map(e => e.trim());
@@ -34,7 +34,7 @@ export function getBookInfo(pageBody: string, url: string) {
         // from meta object keys
         isbn,
         subtitle,
-        authors: authors.replace(/\s+编[\s\n]*$/g, ''),
+        authors: authors && authors.replace(/\s+编[\s\n]*$/g, ''),
         publisher,
         price
     };
