@@ -7,9 +7,9 @@ const router = new Router();
 
 router.get('/v2/book/:id', async (ctx, next) => {
     // Only for valid Douban book ID (numbers) as path param
-    if (isNaN(ctx.params.id)) return await next();
+    if (isNaN(ctx.params.id)) return next();
 
-    const url = 'https://book.douban.com/subject/'+ ctx.params.id;
+    const url = 'https://book.douban.com/subject/' + ctx.params.id;
     const resp = await axios.get(url);
     ctx.body = getBookInfo(resp.data, url);
 });
@@ -36,9 +36,9 @@ router.get('/v2/book/search', async ctx => {
         ctx.body = {
             count: books.length,
             books: books
-        }
+        };
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 });
 

@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
+import { BookInfo } from '../types/BookInfo';
 
-export function getBookInfo(pageBody: string, url: string) {
+export function getBookInfo(pageBody: string, url: string): BookInfo {
     // remove unneccessary spaces and line breaks in body
     const $ = cheerio.load(pageBody.replace(/\s*\n\s*/g, ' '));
     // preserve interested line breaks
@@ -24,7 +25,7 @@ export function getBookInfo(pageBody: string, url: string) {
         定价: price
     } = bookKeys;
 
-    const bookInfo = {
+    const bookInfo: BookInfo = {
         title: $('#wrapper > h1 > span').text().trim(),
         rating: $('#interest_sectl .rating_num').text().trim(),
         tags: $('#db-tags-section > div').text().trim().replace(/\s+/g, ','),

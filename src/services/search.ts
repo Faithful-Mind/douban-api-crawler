@@ -1,23 +1,22 @@
 import puppeteer from 'puppeteer';
 import { browserOpts } from '../../config';
+import { BookInfo } from '../types/BookInfo';
 
-interface BookItem {
-    title: string;
-    url: string;
-    [key: string]: string;
+interface BookItem extends BookInfo {
+    meta?: string;
 }
 
-export async function getSearchResults(url: string) {
+export async function getSearchResults(url: string): Promise<BookItem[]> {
     const browser = await puppeteer.launch(browserOpts);
     const page = await browser.newPage();
 
     await page.goto(url);
     const books = await page.$$eval('#root div.item-root', arr => {
         return arr.map(e => {
-            const a = e.querySelector('a.title-text') as HTMLAnchorElement,
-                img = e.querySelector<HTMLImageElement>('img'),
-                meta = e.querySelector<HTMLElement>('.meta.abstract'),
-                rating = e.querySelector<HTMLElement>('.rating_nums');
+            const a = e.querySelector('a.title-text') as HTMLAnchorElement;
+            const img = e.querySelector<HTMLImageElement>('img');
+            const meta = e.querySelector<HTMLElement>('.meta.abstract');
+            const rating = e.querySelector<HTMLElement>('.rating_nums');
 
             const bookItem: BookItem = { title: a.innerText, url: a.href };
 
